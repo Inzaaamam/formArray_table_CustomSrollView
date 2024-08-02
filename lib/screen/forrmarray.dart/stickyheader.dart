@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:reactive_date_time_picker/reactive_date_time_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:tab/screen/button.dart';
+import 'package:tab/screen/customscrol.dart';
 import 'package:tab/screen/dropdown.dart';
 import 'package:tab/screen/hold.dart';
+import 'package:tab/screen/reactivedropdown.dart';
 import 'package:tab/screen/textfieldwidget.dart';
-import 'package:tab/screen/textwidget.dart';
 
 class StickyHeaderScreen extends StatefulWidget {
   const StickyHeaderScreen({super.key});
@@ -33,7 +34,6 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
 
   FormArray get entries => form.control('entries') as FormArray;
 
-  // ignore: unused_element
   void _addEntry() {
     entries.add(
       FormGroup({
@@ -50,7 +50,6 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
     setState(() {});
   }
 
-  // ignore: unused_element
   void _deleteEntry(int index) {
     entries.removeAt(index);
     setState(() {});
@@ -301,10 +300,10 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                             (index) {
                               final formGroup = formArray
                                   .control(index.toString()) as FormGroup;
-
                               return Padding(
                                 padding: const EdgeInsets.only(top: 10),
                                 child: Container(
+                                  key: UniqueKey(),
                                   decoration: BoxDecoration(
                                     color: const Color.fromARGB(
                                         255, 241, 236, 236),
@@ -320,13 +319,12 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                             Flexible(
                                               flex: 2,
                                               child: ReactiveCustomDropdown(
+                                                hint: 'Marsman Bellok',
                                                 items: const [
                                                   'Marsman Bellok',
                                                   'Item 2',
                                                   'Item 3'
                                                 ],
-                                                suffixIcon: const Icon(
-                                                    Icons.arrow_drop_down),
                                                 initialValue: 'Marsman Bellok',
                                                 hintText: 'Marsman Bellok',
                                                 borderColorTop:
@@ -353,6 +351,7 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                             Flexible(
                                               flex: 1,
                                               child: Container(
+                                                height: 50,
                                                 decoration: const BoxDecoration(
                                                   border: Border(
                                                     top: BorderSide(
@@ -371,6 +370,9 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                   formControl: formGroup
                                                           .control('date')
                                                       as FormControl<DateTime>,
+                                                  type:
+                                                      ReactiveDatePickerFieldType
+                                                          .date,
                                                   decoration:
                                                       const InputDecoration(
                                                     hintText: '11/24/23',
@@ -390,15 +392,11 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                     focusedErrorBorder:
                                                         InputBorder.none,
                                                     contentPadding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 10,
-                                                            horizontal: 16),
-                                                    suffixIcon: Padding(
-                                                      padding:
-                                                          EdgeInsets.fromLTRB(
-                                                              0, 0, 15, 0),
-                                                      child: Icon(
-                                                          Icons.calendar_today),
+                                                        EdgeInsets.fromLTRB(
+                                                            8, 16, 0, 16),
+                                                    suffixIcon: Icon(
+                                                      Icons.calendar_today,
+                                                      size: 16,
                                                     ),
                                                   ),
                                                 ),
@@ -416,8 +414,7 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                 // onChanged: (value) {
                                                 //   print('Selected: $value');
                                                 // },
-                                                suffixIcon: const Icon(
-                                                    Icons.arrow_drop_down),
+
                                                 initialValue: 'Day',
                                                 hintText: 'Day',
                                                 borderColorBottom:
@@ -439,6 +436,7 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                 formControl:
                                                     formGroup.control('dday')
                                                         as FormControl<String>,
+                                                hint: 'Day',
                                               ),
                                             ),
                                             Flexible(
@@ -452,8 +450,7 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                 // onChanged: (value) {
                                                 //   print('Selected: $value');
                                                 // },
-                                                suffixIcon: const Icon(
-                                                    Icons.arrow_drop_down),
+
                                                 initialValue: 'Miss Tare',
                                                 hintText: 'Miss Tare',
                                                 borderColorBottom:
@@ -462,19 +459,18 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                 borderColorTop:
                                                     const Color.fromARGB(
                                                         255, 214, 212, 212),
-                                                borderColorLeft:
-                                                    const Color.fromARGB(
-                                                        255, 214, 212, 212),
+
                                                 borderColorRight:
                                                     const Color.fromARGB(
                                                         255, 214, 212, 212),
                                                 borderWidthBottom: 1.0,
                                                 borderWidthTop: 1.0,
-                                                borderWidthLeft: 1.0,
+
                                                 borderWidthRight: 1.0,
                                                 formControl:
                                                     formGroup.control('dmiss')
                                                         as FormControl<String>,
+                                                hint: 'Miss Tare',
                                               ),
                                             ),
                                             Flexible(
@@ -498,6 +494,9 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                   formControl: formGroup
                                                           .control('time')
                                                       as FormControl<DateTime>,
+                                                  type:
+                                                      ReactiveDatePickerFieldType
+                                                          .time,
                                                   decoration:
                                                       const InputDecoration(
                                                     hintText: '10:33 PM',
@@ -517,15 +516,11 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                     focusedErrorBorder:
                                                         InputBorder.none,
                                                     contentPadding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 10,
-                                                            horizontal: 16),
-                                                    suffixIcon: Padding(
-                                                      padding:
-                                                          EdgeInsets.fromLTRB(
-                                                              0, 0, 15, 0),
-                                                      child: Icon(
-                                                          Icons.access_time),
+                                                        EdgeInsets.fromLTRB(
+                                                            8, 14, 0, 14),
+                                                    suffixIcon: Icon(
+                                                      Icons.access_time,
+                                                      size: 16,
                                                     ),
                                                   ),
                                                 ),
@@ -560,7 +555,7 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                 )),
                                                 child: const Padding(
                                                   padding: EdgeInsets.fromLTRB(
-                                                      30, 0, 20, 0),
+                                                      15, 0, 20, 0),
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -601,13 +596,26 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                     left: 20),
                                                 child: GestureDetector(
                                                   onTap: () {
+                                                    if (formArray
+                                                            .controls.length ==
+                                                        1) {
+                                                      return;
+                                                    }
                                                     _deleteEntry(index);
                                                   },
-                                                  child: const Center(
-                                                    child: Icon(
-                                                      Icons.delete,
-                                                    ),
-                                                  ),
+                                                  child: formArray.controls
+                                                              .length ==
+                                                          1
+                                                      ? const Center(
+                                                          child: Icon(
+                                                          Icons.delete,
+                                                          color: Colors.green,
+                                                        ))
+                                                      : const Center(
+                                                          child: Icon(
+                                                            Icons.delete,
+                                                          ),
+                                                        ),
                                                 ),
                                               ),
                                             )
@@ -623,8 +631,6 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                   'Example 2',
                                                   'Example 3'
                                                 ],
-                                                suffixIcon: const Icon(
-                                                    Icons.arrow_drop_down),
                                                 initialValue: 'Example 1',
                                                 hintText: 'Example 1',
                                                 borderColorBottom:
@@ -642,6 +648,7 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                 formControl: formGroup
                                                         .control('dexample')
                                                     as FormControl<String>,
+                                                hint: 'Example',
                                               ),
                                             ),
                                             Flexible(
@@ -656,15 +663,13 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
                                                 borderColorBottom:
                                                     const Color.fromARGB(
                                                         255, 214, 212, 212),
-                                                borderColorLeft:
-                                                    const Color.fromARGB(
-                                                        255, 214, 212, 212),
-                                                borderColorRight:
-                                                    const Color.fromARGB(
-                                                        255, 214, 212, 212),
+
+                                                // borderColorRight:
+                                                //     const Color.fromARGB(
+                                                //         255, 214, 212, 212),
                                                 borderWidthBottom: 1.0,
-                                                borderWidthLeft: 1.0,
-                                                borderWidthRight: 1.0,
+                                                // borderWidthLeft: 1.0,
+                                                // borderWidthRight: 1.0,
                                               ),
                                             ),
                                             Flexible(
@@ -727,8 +732,8 @@ class _StickyHeaderScreenState extends State<StickyHeaderScreen> {
               textColor: Colors.black,
               title: 'Cancel',
               onPressed: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => const StickyHeaderScreen()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CustomScrollViewExample()));
               },
               borderColor: Colors.grey,
             ),

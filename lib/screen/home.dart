@@ -118,6 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             keyboardType: TextInputType.text,
                             validator: (control) => 'This field is required',
                             onFieldSubmitted: (value) {
+                              // ignore: avoid_print
                               print('Submitted: $value');
                             },
                           ),

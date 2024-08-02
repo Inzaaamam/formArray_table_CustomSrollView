@@ -46,7 +46,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           padding: const EdgeInsets.symmetric(
-            horizontal: 16,
+            horizontal: 10,
           ),
           isExpanded: true,
           autofocus: true,

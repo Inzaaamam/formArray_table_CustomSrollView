@@ -6,8 +6,6 @@ class CustomDropdown extends StatefulWidget {
   final ValueChanged<String?> onChanged;
   final Widget suffixIcon;
   final String? hintText;
-
-  // Border customization properties
   final Color borderColorTop;
   final Color borderColorBottom;
   final Color borderColorLeft;
@@ -24,8 +22,6 @@ class CustomDropdown extends StatefulWidget {
     required this.onChanged,
     required this.suffixIcon,
     this.initialValue,
-
-    // Default values for border properties
     this.borderColorTop = Colors.transparent,
     this.borderColorBottom = Colors.transparent,
     this.borderColorLeft = Colors.transparent,
@@ -37,6 +33,7 @@ class CustomDropdown extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _CustomDropdownState createState() => _CustomDropdownState();
 }
 

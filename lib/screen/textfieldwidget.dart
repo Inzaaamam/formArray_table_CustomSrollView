@@ -64,7 +64,7 @@ class TextWidgetForm extends StatelessWidget {
           errorBorder: InputBorder.none,
           focusedErrorBorder: InputBorder.none,
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
           hintText: hintText,
         ),
         keyboardType: keyboardType,
@@ -156,7 +156,7 @@ class WidgetForm extends StatelessWidget {
           errorBorder: InputBorder.none,
           focusedErrorBorder: InputBorder.none,
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
           hintText: hintText,
           // hintStyle: const TextStyle(color: Colors.grey),
           // labelStyle: const TextStyle(color: Colors.black),

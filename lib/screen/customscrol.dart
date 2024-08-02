@@ -3,7 +3,6 @@ import 'package:reactive_date_time_picker/reactive_date_time_picker.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:tab/screen/button.dart';
 import 'package:tab/screen/dropdown.dart';
-import 'package:tab/screen/forrmarray.dart/formarray.dart';
 import 'package:tab/screen/forrmarray.dart/stickyheader.dart';
 import 'package:tab/screen/hold.dart';
 import 'package:tab/screen/textfieldwidget.dart';
@@ -171,7 +170,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                   expandedTitleScale: 2,
                   // stretchModes: [StretchMode.zoomBackground],
                   collapseMode: CollapseMode.none,
-                  titlePadding: EdgeInsets.all(0),
+                  titlePadding: const EdgeInsets.all(0),
                   centerTitle: false,
 
                   title: Container(
@@ -306,6 +305,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                         'Item 3'
                                       ],
                                       onChanged: (value) {
+                                        // ignore: avoid_print
                                         print('Selected: $value');
                                       },
                                       suffixIcon:
@@ -349,6 +349,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                           border: OutlineInputBorder(
                                               borderSide: BorderSide(
                                             width: 1,
+                                            // ignore: unnecessary_const
                                             color: const Color.fromARGB(
                                                 255, 214, 212, 212),
                                           )),
@@ -356,9 +357,8 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                           focusedBorder: InputBorder.none,
                                           errorBorder: InputBorder.none,
                                           focusedErrorBorder: InputBorder.none,
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 10, horizontal: 16),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 10, horizontal: 16),
                                           suffixIcon: Padding(
                                             padding: EdgeInsets.fromLTRB(
                                                 0, 0, 15, 0),
@@ -377,9 +377,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                         'Day 3',
                                         'Day 4'
                                       ],
-                                      onChanged: (value) {
-                                        print('Selected: $value');
-                                      },
+                                      onChanged: (value) {},
                                       suffixIcon:
                                           const Icon(Icons.arrow_drop_down),
                                       initialValue: 'Day',
@@ -406,9 +404,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                         'Miss Miss Dina',
                                         'Miss'
                                       ],
-                                      onChanged: (value) {
-                                        print('Selected: $value');
-                                      },
+                                      onChanged: (value) {},
                                       suffixIcon:
                                           const Icon(Icons.arrow_drop_down),
                                       initialValue: 'Miss Tara',
@@ -455,9 +451,8 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                           focusedBorder: InputBorder.none,
                                           errorBorder: InputBorder.none,
                                           focusedErrorBorder: InputBorder.none,
-                                          contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 16, horizontal: 16),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 16, horizontal: 16),
                                           suffixIcon:
                                               Icon(Icons.watch_later_outlined),
                                         ),
@@ -544,9 +539,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                         'Example 2',
                                         'Example 3'
                                       ],
-                                      onChanged: (value) {
-                                        print('Selected: $value');
-                                      },
+                                      onChanged: (value) {},
                                       suffixIcon:
                                           const Icon(Icons.arrow_drop_down),
                                       initialValue: 'Example',
@@ -570,9 +563,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                       keyboardType: TextInputType.text,
                                       validator: (control) =>
                                           'This field is required',
-                                      onFieldSubmitted: (value) {
-                                        print('Submitted: $value');
-                                      },
+                                      onFieldSubmitted: (value) {},
                                       borderColorBottom: const Color.fromARGB(
                                           255, 214, 212, 212),
                                       borderColorRight: const Color.fromARGB(
@@ -588,9 +579,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                                       hintText: '7',
                                       keyboardType: TextInputType.text,
                                       // validator: (control) => 'This field is required',
-                                      onFieldSubmitted: (value) {
-                                        print('Submitted: $value');
-                                      },
+                                      onFieldSubmitted: (value) {},
 
                                       borderColorBottom: const Color.fromARGB(
                                           255, 214, 212, 212),
@@ -643,8 +632,8 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
               textColor: Colors.white,
               title: 'Save',
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => DynamicFormArrayExample()));
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => DynamicFormArrayExample()));
               },
             ),
           ],

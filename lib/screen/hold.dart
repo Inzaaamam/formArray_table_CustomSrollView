@@ -30,12 +30,9 @@ class HoldTextWidget extends StatelessWidget {
           : null,
       decoration: InputDecoration(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
-
         contentPadding:
-            const EdgeInsets.symmetric(vertical: 17, horizontal: 16),
+            const EdgeInsets.symmetric(vertical: 17, horizontal: 10),
         hintText: hintText,
-        // hintStyle: const TextStyle(color: Colors.grey),
-        // labelStyle: const TextStyle(color: Colors.black),
       ),
     );
   }
