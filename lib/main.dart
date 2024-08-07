@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tab/screen/nutrovite_dumy/dumy_api_Screen.dart';
+import 'package:tab/screen/recipes_api_for_food/dumy_api_Screen.dart';
 
 void main() {
   runApp(const MyApp());
