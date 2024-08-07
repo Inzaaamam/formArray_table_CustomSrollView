@@ -149,6 +149,7 @@ class _CustomScrollViewExampleState extends State<CustomScrollViewExample> {
                   ],
                 ),
               ),
+
               SliverAppBar(
                 foregroundColor: Colors.blue,
                 backgroundColor: const Color.fromARGB(255, 241, 236, 236),

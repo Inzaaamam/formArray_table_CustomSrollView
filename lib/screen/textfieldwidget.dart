@@ -15,8 +15,8 @@ class TextWidgetForm extends StatelessWidget {
   final double borderWidthBottom;
   final double borderWidthLeft;
   final double borderWidthRight;
-  TextWidgetForm({
-    Key? key,
+  const TextWidgetForm({
+    super.key,
     required this.formControl,
     required this.hintText,
     required this.keyboardType,
@@ -30,7 +30,7 @@ class TextWidgetForm extends StatelessWidget {
     this.borderWidthBottom = 0.0,
     this.borderWidthLeft = 0.0,
     this.borderWidthRight = 0.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

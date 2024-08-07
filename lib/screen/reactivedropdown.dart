@@ -58,13 +58,13 @@ class ReactiveCustomDropdown extends StatelessWidget {
         ),
       ),
       child: ReactiveDropdownField<String>(
-        // ignore: unnecessary_brace_in_string_interps
+        // ignore: unnecessary_brace_in_string_interps, unnecessary_string_interpolations
         hint: Text('${hint}'),
         iconSize: 16,
         formControl: formControl,
         isExpanded: true,
         decoration: InputDecoration(
-          // prefixIconConstraints: BoxConstraints.tight(Size.square(1)),
+      
           hintText: hintText,
           suffixIconColor: Colors.transparent,
           border: InputBorder.none,

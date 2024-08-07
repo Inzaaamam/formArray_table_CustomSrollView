@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           surfaceTintColor: Colors.transparent,
                           child: Container(
                               decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 241, 236, 236),
+                                  color: const Color.fromARGB(255, 241, 236, 236),
                                   borderRadius: BorderRadius.circular(4)),
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
@@ -287,7 +287,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               'Item 3'
                                             ],
                                             onChanged: (value) {
-                                              print('Selected: $value');
                                             },
                                             suffixIcon: const Icon(
                                                 Icons.arrow_drop_down),
@@ -334,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide(
                                                   width: 1,
-                                                  color: const Color.fromARGB(
+                                                  color: Color.fromARGB(
                                                       255, 214, 212, 212),
                                                 )),
                                                 enabledBorder: InputBorder.none,
@@ -343,7 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 focusedErrorBorder:
                                                     InputBorder.none,
                                                 contentPadding:
-                                                    const EdgeInsets.symmetric(
+                                                    EdgeInsets.symmetric(
                                                         vertical: 10,
                                                         horizontal: 16),
                                                 suffixIcon: Padding(
@@ -366,7 +365,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               'Day 4'
                                             ],
                                             onChanged: (value) {
-                                              print('Selected: $value');
                                             },
                                             suffixIcon: const Icon(
                                                 Icons.arrow_drop_down),
@@ -399,7 +397,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               'Miss'
                                             ],
                                             onChanged: (value) {
-                                              print('Selected: $value');
                                             },
                                             suffixIcon: const Icon(
                                                 Icons.arrow_drop_down),
@@ -453,7 +450,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 focusedErrorBorder:
                                                     InputBorder.none,
                                                 contentPadding:
-                                                    const EdgeInsets.symmetric(
+                                                    EdgeInsets.symmetric(
                                                         vertical: 16,
                                                         horizontal: 16),
                                                 suffixIcon: Icon(
@@ -546,7 +543,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               'Example 3'
                                             ],
                                             onChanged: (value) {
-                                              print('Selected: $value');
                                             },
                                             suffixIcon: const Icon(
                                                 Icons.arrow_drop_down),
@@ -575,7 +571,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             validator: (control) =>
                                                 'This field is required',
                                             onFieldSubmitted: (value) {
-                                              print('Submitted: $value');
                                             },
                                             borderColorBottom:
                                                 const Color.fromARGB(
@@ -595,7 +590,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             keyboardType: TextInputType.text,
                                             // validator: (control) => 'This field is required',
                                             onFieldSubmitted: (value) {
-                                              print('Submitted: $value');
                                             },
 
                                             borderColorBottom:
