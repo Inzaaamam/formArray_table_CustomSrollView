@@ -1,9 +1,10 @@
 // ignore_for_file: file_names, unused_field, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:tab/screen/nutrovite_dumy/api.dart';
-import 'package:tab/screen/nutrovite_dumy/model_g.dart';
-import 'package:tab/screen/nutrovite_dumy/recip_details.dart';
+
+import 'package:tab/screen/recipes_api_for_food/api.dart';
+import 'package:tab/screen/recipes_api_for_food/model_recipes.dart';
+import 'package:tab/screen/recipes_api_for_food/recip_details.dart';
 
 class RecipeListScreen extends StatefulWidget {
   const RecipeListScreen({super.key});
@@ -46,6 +47,11 @@ class _RecipeListScreenState extends State<RecipeListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+          size: 22,
+        ),
         backgroundColor: Colors.blue,
         automaticallyImplyLeading: true,
         title: const Center(

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:tab/screen/nutrovite_dumy/model_g.dart';
+import 'package:tab/screen/recipes_api_for_food/model_recipes.dart';
 
 class ApiService {
   final Dio _dio = Dio();

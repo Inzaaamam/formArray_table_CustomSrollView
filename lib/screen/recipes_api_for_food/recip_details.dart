@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:tab/screen/nutrovite_dumy/model_g.dart';
+import 'package:tab/screen/recipes_api_for_food/model_recipes.dart';
 
 class RecipeDetailScreen extends StatelessWidget {
   final Recipes recipe;
@@ -12,15 +12,18 @@ class RecipeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         iconTheme: const IconThemeData(
           color: Colors.white,
           size: 22,
         ),
         automaticallyImplyLeading: true,
-        title: Text(
-          recipe.name ?? 'Recipe Details',
-          style: const TextStyle(
-              fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
+        title: Center(
+          child: Text(
+            recipe.name ?? 'Recipe Details',
+            style: const TextStyle(
+                fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
+          ),
         ),
         backgroundColor: Colors.blue,
       ),
