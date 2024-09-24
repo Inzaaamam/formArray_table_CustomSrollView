@@ -391,3 +391,268 @@
 //     };
 //   }
 // }
+// import 'dart:convert';
+import 'package:comnet/db/offline_date/offline.dart';
+import '../../../../../app/services/auth_service.dart';
+import '../validation/validation_api.dart';
+
+class GetOfflineData {
+  static void downloadData() async {
+    try {
+      await downloadValidationData();
+    } catch (_) {}
+  }
+
+  static downloadValidationData() async {
+    try {
+      final ValidationApi validationApi = ValidationApi();
+      List<Map<String, dynamic>> listOfMap = [];
+      dynamic response = await validationApi.getValidations(
+              userId: AuthService.to.user!.userId, mStart: 0);
+      if (response != null) {
+            for (var element in (response as List)) {
+              final data = OfflineTable.create(
+                      id: element['main_id'],
+                      type: 'validation',
+                      isSynced: '0',
+                      serverData: jsonEncode(element))
+                  .toJson();
+              listOfMap.add(data);
+            }
+            await addDataToDb(listOfMap);
+          }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static addDataToDb(dynamic data) async {
+    try {
+      await OfflineDao.get().addOfflineData(data);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static  fetchDataFromDb() async {
+    try {
+      final  data = await OfflineDao.get().getOfflineList();
+      List<Map<String, dynamic>> dblistData = [];
+      for (var item in data) {
+        if (item.serverData != null) {
+          Map<String, dynamic> decodedItem = jsonDecode(item.serverData!);
+          dblistData.add(decodedItem);
+        }
+      }
+      return dblistData;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+}
+// UI
+import 'package:flutter/material.dart';
+
+import '../../../../sdk/services/http/entities/offline_data_api/offline_data_fetching.dart';
+import '../../../../styles/styles.dart';
+
+class OfflineDataScreen extends StatefulWidget {
+  const OfflineDataScreen({super.key});
+
+  @override
+  _OfflineDataScreenState createState() => _OfflineDataScreenState();
+}
+
+class _OfflineDataScreenState extends State<OfflineDataScreen> {
+  List<Map<String, dynamic>> offlineData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    final data = await GetOfflineData.fetchDataFromDb();
+    setState(() {
+      offlineData = data;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Offline Data'),
+        ),
+        body: offlineData.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  // controller.fetchLocalData();
+                },
+                child: ListView.builder(
+                  itemCount: offlineData.length,
+                  itemBuilder: (context, index) {
+                    final item = offlineData[index];
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            Sizes.s4,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: CustomColors.shadowColor,
+                              blurRadius: 4,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: Material(
+                          color: CustomColors.whiteColor,
+                          borderRadius: BorderRadius.circular(
+                            Sizes.s4,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'CAMPAIGN NAME/MONTH:  ',
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        '${item['campaign_name']}',
+                                        style: textTheme.titleLarge,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'PROVINCE NAME:  ',
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        '${item['province_name']}',
+                                        style: textTheme.titleLarge,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'DISTRICT NAME:  ',
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        '${item['district_name']}',
+                                        style: textTheme.titleLarge,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'TOWN NAME:  ',
+                                    ),
+                                    // Flexible(
+                                    //   child: Text(
+                                    //     model.provinceId ?? "",
+                                    //     style: textTheme.titleLarge,
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'UC NAME:  ',
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        '${item['uc_name']}',
+                                        style: textTheme.titleLarge,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                if (item['budgeted'] != null &&
+                                    item['budgeted']!.isNotEmpty)
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        'BUDGETED:  ',
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          item['budgeted'] == '1'
+                                              ? 'Yes'
+                                              : item['budgeted'] == '0'
+                                                  ? 'No'
+                                                  : '',
+                                          style: textTheme.titleLarge,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'ACTIVITY TYPE:  ',
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        '${item['act_name']}',
+                                        style: textTheme.titleLarge,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                // if (model.validated != null &&
+                                //     model.validated!.isNotEmpty)
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'VALIDATED:  ',
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        '${item['validated']}',
+                                        style: textTheme.titleLarge,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ));
+  }
+}
+
+
