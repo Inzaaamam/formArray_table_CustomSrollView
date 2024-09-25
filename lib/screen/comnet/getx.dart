@@ -654,5 +654,40 @@ class _OfflineDataScreenState extends State<OfflineDataScreen> {
               ));
   }
 }
+// social profile function to store data in local db 
+  static  socialProfile() async {
+    try {
+      final SocialProfileApi socialProfileApi = SocialProfileApi();
+      ListingBaseParams params = ListingBaseParams(
+        userId: AuthService.to.user?.userId ??
+          ''
+      );
 
+      List<Map<String, dynamic>> listOfMap = [];
+      dynamic response = await socialProfileApi.getSocialActivityListing(
+        'Rest_social_profiling/get_sm',
+        params: params,
+        mStart: 0,
+        mLength: 20,
+      );
+
+      if (response != null) {
+        for (var element in (response as List)) {
+          final data = OfflineTable.create(
+            id: element['main_id'],
+            type: 'validation',
+            isSynced: '0',
+            serverData: jsonEncode(element),
+          ).toJson();
+          listOfMap.add(data);
+        }
+
+        // Add data to the database
+        await addDataToDb(listOfMap);
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+}
 
