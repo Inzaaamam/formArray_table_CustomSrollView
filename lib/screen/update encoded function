@@ -677,8 +677,8 @@ class _OfflineDataScreenState extends State<OfflineDataScreen> {
             id: element['main_id'],
             type: 'validation',
             isSynced: '0',
-            serverData: jsonEncode(element),
-          ).toJson();
+            serverData: jsonEncode(element))
+              .toJson();
           listOfMap.add(data);
         }
 
