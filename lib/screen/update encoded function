@@ -691,3 +691,108 @@ class _OfflineDataScreenState extends State<OfflineDataScreen> {
   }
 }
 
+import 'dart:convert';
+
+import 'package:comnet/db/db.dart';
+import 'package:comnet/sdk/sdk.dart';
+import '../../../../../app/services/auth_service.dart';
+import '../validation/validation_api.dart';
+
+class GetOfflineData {
+  static void downloadData() async {
+    try {
+      await downloadValidationData();
+    } catch (_) {}
+    try {
+      await downloadOrganizations();
+    } catch (_) {}
+    try {
+      await downloadActivities();
+    } catch (_) {}
+  }
+
+  static downloadValidationData() async {
+    try {
+      dynamic response = await ValidationApi().getValidations(
+        userId: AuthService.to.user!.userId,
+        mStart: 0,
+      );
+      if (response != null && response is List && response.isNotEmpty) {
+        await addDataToDb(
+          response.map((element) {
+            return OfflineTable.create(
+              id: element['det_id'],
+              type: 'validation',
+              isSynced: '0',
+              serverData: jsonEncode(element),
+              date: DateTime.tryParse(element['activity_date'] ?? '')
+                  ?.millisecondsSinceEpoch,
+            ).toJson();
+          }).toList(),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  // Separate function for organizations
+  static Future<void> downloadOrganizations() async {
+    await socialProfile(
+      apiEndpoint: 'Rest_social_profiling/get_organizations',
+      type: 'organizations',
+    );
+  }
+
+  // Separate function for activities
+  static Future<void> downloadActivities() async {
+    await socialProfile(
+      apiEndpoint: 'Rest_social_profiling/get_activities',
+      type: 'activities',
+    );
+  }
+
+  // Generic function to fetch and process data
+  static Future<void> socialProfile({
+    required String apiEndpoint,
+    required String type,
+  }) async {
+    try {
+      final SocialProfileApi socialProfileApi = SocialProfileApi();
+      ListingBaseParams params = ListingBaseParams(
+        userId: AuthService.to.user?.userId ?? '',
+      );
+
+      List<Map<String, dynamic>> listOfMap = [];
+      dynamic response = await socialProfileApi.getSocialActivityListing(
+        apiEndpoint,
+        params: params,
+        mStart: 0,
+      );
+      if (response != null) {
+        for (var element in (response as List)) {
+          final data = OfflineTable.create(
+                  id: element['id'],
+                  type: type, // Use the passed 'type'
+                  isSynced: '0',
+                  serverData: jsonEncode(element))
+              .toJson();
+          listOfMap.add(data);
+        }
+        // Add data to the database
+        await addDataToDb(listOfMap);
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  static Future<void> addDataToDb(dynamic data) async {
+    try {
+      await OfflineDao.get().addOfflineData(data);
+    } catch (e) {
+      print(e);
+    }
+  }
+}
+
