@@ -786,7 +786,7 @@ class GetOfflineData {
       print('Error: $e');
     }
   }
-
+// offline data store code through api
   static Future<void> addDataToDb(dynamic data) async {
     try {
       await OfflineDao.get().addOfflineData(data);
@@ -795,4 +795,61 @@ class GetOfflineData {
     }
   }
 }
-
+  // post social profile data and store in local database
+  // static Future<void> postSocialProfile({
+  //   required String apiEndpoint,
+  //   required String type,
+  //   required Map<String, dynamic> profileData,
+  //   String? id,
+  // }) async {
+  //   try {
+  //     String uniqueId = id ?? uuid.v4();
+  //     var connectivityResult = await Connectivity().checkConnectivity();
+  //     Map<String, dynamic> serverData = Map.from(profileData);
+  //     serverData['social_profile'] =
+  //         Map<String, dynamic>.from(profileData['social_profile']);
+  //     serverData['social_profile']['id'] = uniqueId;
+  //
+  //     if (connectivityResult == ConnectivityResult.none) {
+  //       final offlineData = OfflineTable.create(
+  //         id: uniqueId,
+  //         type: type,
+  //         isSynced: '0',
+  //         serverData: jsonEncode(serverData['social_profile']),
+  //       ).toJson();
+  //
+  //       await addDataToDb([offlineData]);
+  //     } else {
+  //       final SocialProfileApi socialProfileApi = SocialProfileApi();
+  //       dynamic response = await socialProfileApi.uploadSocialProfile(
+  //         apiEndpoint,
+  //         socialProfileData: serverData['social_profile'],
+  //         id: uniqueId,
+  //       );
+  //
+  //       if (response != null) {
+  //         var serverId = response['id'] ?? uniqueId;
+  //         final offlineData = OfflineTable.create(
+  //           id: serverId,
+  //           type: type,
+  //           isSynced: '1',
+  //           serverData: jsonEncode(serverData['social_profile']),
+  //         ).toJson();
+  //
+  //         await addDataToDb([offlineData]);
+  //         print('Posted to server and stored in local DB.');
+  //       }
+  //     }
+  //   } catch (e) {
+  //     // print('Error posting social profile: $e');
+  //     final failedData = OfflineTable.create(
+  //       id: id ?? Uuid().v4(),
+  //       type: type,
+  //       isSynced: '0',
+  //       serverData: jsonEncode(profileData['social_profile']),
+  //     ).toJson();
+  //
+  //     await addDataToDb([failedData]);
+  //     print('Stored locally due to API failure.');
+  //   }
+  // }
