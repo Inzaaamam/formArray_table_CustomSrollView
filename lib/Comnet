@@ -853,3 +853,28 @@ class GetOfflineData {
   //     print('Stored locally due to API failure.');
   //   }
   // }
+// insert data in local database functon 
+  static downloadValidationData() async {
+    try {
+      dynamic response = await ValidationApi().getValidations(
+        userId: AuthService.to.user!.userId,
+        mStart: 0,
+      );
+      if (response != null && response is List && response.isNotEmpty) {
+        await addDataToDb(
+          response.map((element) {
+            return OfflineTable.create(
+              id: element['det_id'],
+              type: 'validation',
+              isSynced: '0',
+              serverData: jsonEncode(element),
+              date: DateTime.tryParse(element['activity_date'] ?? '')
+                  ?.millisecondsSinceEpoch,
+            ).toJson();
+          }).toList(),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
